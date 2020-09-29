@@ -17,43 +17,45 @@ export const timelineView = () => {
       </ul>
     </section>
 
-    <section class="post">
-      <div class="post-options">
-        <label for="privacy-post">Privacidad: </label>
-        <select id="privacy-post">
-          <option value="public">Público</option>
-          <option value="private">Privado</option>
-        </select>
-        <button type="button" id="edit-post"><img src="" alt="edit-post"></button>      
-      </div>
+    <section class="all-post">
+      <section class="post">
+        <div class="post-options">
+          <label for="privacy-post">Privacidad: </label>
+          <select id="privacy-post">
+            <option value="public">Público</option>
+            <option value="private">Privado</option>
+          </select>
+          <button type="button" id="edit-post"><img src="" alt="edit-post"></button>      
+        </div>
 
-      <div class="text-container">
-        <label for="post-text"></label>
-        <textarea id="post-text" name="post-text" placeholder="¿Qué quieres compartir?"></textarea>
-      </div>
+        <div class="text-container">
+          <label for="post-text"></label>
+          <textarea id="post-text" name="post-text" placeholder="¿Qué quieres compartir?"></textarea>
+        </div>
 
-      <div class="post-buttons">
-        <button type="button" id="load-img"><img src="" alt="load-img"></button>
-        <button id="share-post" class="button-post">Compartir</button>
-      </div>
-    </section>
+        <div class="post-buttons">
+          <button type="button" id="load-img"><img src="" alt="load-img"></button>
+          <button id="share-post" class="button-post">Compartir</button>
+        </div>
+      </section>
 
-    <!-- SECCIÓN CON LOS DEMÁS POSTS -->
-    <section id="timeline" class="posted">
-      <!-- ocultar íconos de borrar y editar -->
-      <div class="post-author">
-        <span>Publicado por ABCD EFGH</span>      
-      </div>
+      <!-- SECCIÓN CON LOS DEMÁS POSTS -->
+      <section id="timeline" class="posted">
+        <!-- ocultar íconos de borrar y editar -->
+        <div class="post-author">
+          <span>Publicado por ABCD EFGH</span>      
+        </div>
 
-      <div class="text-container">
-        <label for="post-text-posted"></label>
-        <textarea class="post-text-posted" name="post-text-posted" readonly></textarea>
-      </div>
+        <div class="text-container">
+          <label for="post-text-posted"></label>
+          <textarea class="post-text-posted" name="post-text-posted" readonly></textarea>
+        </div>
 
-      <div class="post-buttons">
-        <button type="button" id="like-post" class="button-post"><img src="" alt="like"></button>
-        <button id="share-post" class="button-post">Comentar</button>
-      </div>
+        <div class="post-buttons">
+          <button type="button" id="like-post" class="button-post"><img src="" alt="like"></button>
+          <button id="share-post" class="button-post">Comentar</button>
+        </div>
+      </section>
     </section>
   </section> `;
   const div = document.createElement('div');
