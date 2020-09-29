@@ -1,16 +1,19 @@
 import { logOut } from '../model/firebase-auth.js';
 
+import { dataUser } from '../model/firebase-user.js';
+
 export const timelineView = () => {
+  //  Obtener el usuario que accedió
+  const user = firebase.auth().currentUser;
   const timeline = `
     <!-- PERFIL CON OPCIÓN PARA POSTEAR -->
   <section id="timelineView">
     <section id="profile">
-      <img src="img/perfil.png" alt="profile-picture">
+      <img class="photo-profile" alt="profile-picture">
       <ul class="profile-data">
-        <li class="name"> Fulanita Suarez</li>
-        <li class="data"> Profesora de Matemáticas</li>
-        <li class="data"> Grado: </li>
-        <li class="data"> Cursos: </li>
+        <li class="name"></li>
+        <li class="grade"></li>
+        <li class="description"></li>
       </ul>
     </section>
 
@@ -55,6 +58,18 @@ export const timelineView = () => {
   </section> `;
   const div = document.createElement('div');
   div.innerHTML = timeline;
+  // Llenamos la info del perfil del usuario
+  const nameProfile = div.querySelector('.name');
+  const gradeProfile = div.querySelector('.grade');
+  const descriptionProfile = div.querySelector('.description');
+  const phtoProfile = div.querySelector('.photo-profile');
+  dataUser(user.uid)
+    .then((docUser) => {
+      nameProfile.innerHTML = docUser.data().name;
+      gradeProfile.innerHTML = docUser.data().grade;
+      descriptionProfile.innerHTML = docUser.data().description;
+      phtoProfile.src = docUser.data().photo;
+    });
   // DOM para el cerrar sesion
   const btnLogOut = document.querySelector('#btn-logout');
   btnLogOut.addEventListener('click', () => {

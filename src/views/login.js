@@ -50,7 +50,7 @@ export const loginPrincipal = () => {
       .then((result) => {
         console.log(result.user);
         console.log(result.user.uid);
-        createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', 'Conpartiendo conocimiento')
+        createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Conpartiendo conocimiento')
           .then(() => {
             console.log('se creo usuario');
           });
