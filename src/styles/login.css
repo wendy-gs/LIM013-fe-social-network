@@ -94,6 +94,10 @@
 	color: #f7971c;
 	font-weight: bold;
 }
+#messages-error{
+	color:#F32B17;
+	font-weight: bold;
+}
 @media (max-width:600px){
 	.saludo{
 		display: none;

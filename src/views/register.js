@@ -1,3 +1,7 @@
+import { newUser } from '../model/firebase-auth.js';
+
+import { createUser } from '../model/firebase-user.js';
+
 export const registerView = () => {
   const registerTmplt = `
   <section id="section-register">
@@ -38,5 +42,17 @@ export const registerView = () => {
 </section> `;
   const div = document.createElement('div');
   div.innerHTML = registerTmplt;
+  const btnRegistrar = div.querySelector('#form-register');
+  btnRegistrar.addEventListener('click', () => {
+    const userEmail = div.querySelector('#form-email').value;
+    const userPass = div.querySelector('#form-pass').value;
+    newUser(userEmail, userPass)
+      .then(() => {
+        console.log('se creo nuevo usuario');
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  });
   return div;
 };
