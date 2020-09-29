@@ -1,6 +1,5 @@
-export const Perfil=()=>{
-	
-  const viewPerfil =`
+export const Perfil = () => {
+  const viewPerfil = `
     <section id="view-perfil">
     <div class="portada">
       <div id="contendor-imagen">
@@ -18,9 +17,8 @@ export const Perfil=()=>{
       </form>
 
     </div>
-  </section>
-  `
-  const div= document.createElement('div')
-  div.innerHTML=viewPerfil;
+  </section> `;
+  const div = document.createElement('div');
+  div.innerHTML = viewPerfil;
   return div;
 }

@@ -1,15 +1,17 @@
-export const newUser = (email, password) => {
-  firebase.auth().createUserWithEmailAndPassword(email, password);
-};
+export const register = (email, password) => firebase.auth()
+  .createUserWithEmailAndPassword(email, password);
+
 export const logIn = (email, password) => firebase.auth()
   .signInWithEmailAndPassword(email, password);
 
-export const googleLogin = () => {
-  const provider = new firebase.auth.GoogleAuthProvider();
-  return firebase.auth().signInWithPopup(provider);
+export const logInFb = () => {
+  const providerFb = new firebase.auth.FacebookAuthProvider();
+  return firebase.auth().signInWithPopup(providerFb);
 };
-export const fbLogin = () => {
-  const provider = new firebase.auth.FacebookAuthProvider();
-  return firebase.auth().signInWithPopup(provider);
+
+export const logInGm = () => {
+  const providerGm = new firebase.auth.GoogleAuthProvider();
+  return firebase.auth().signInWithPopup(providerGm);
 };
+
 export const logOut = () => firebase.auth().signOut();

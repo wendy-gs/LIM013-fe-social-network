@@ -9,7 +9,7 @@ export const timelineView = () => {
     <!-- PERFIL CON OPCIÓN PARA POSTEAR -->
   <section id="timelineView">
     <section id="profile">
-      <img class="photo-profile" alt="profile-picture">
+      <img id='photo-profile' alt="profile-picture">
       <ul class="profile-data">
         <li class="name"></li>
         <li class="grade"></li>
@@ -60,17 +60,17 @@ export const timelineView = () => {
   </section> `;
   const div = document.createElement('div');
   div.innerHTML = timeline;
-  // Llenamos la info del perfil del usuario
-  const nameProfile = div.querySelector('.name');
-  const gradeProfile = div.querySelector('.grade');
-  const descriptionProfile = div.querySelector('.description');
-  const phtoProfile = div.querySelector('.photo-profile');
+  const userName = div.querySelector('.name');
+  const userGrade = div.querySelector('.grade');
+  const userDescription = div.querySelector('.description');
+  const userPhoto = div.querySelector('#photo-profile');
+  // Llenado con los datos del usuario
   dataUser(user.uid)
     .then((docUser) => {
-      nameProfile.innerHTML = docUser.data().name;
-      gradeProfile.innerHTML = docUser.data().grade;
-      descriptionProfile.innerHTML = docUser.data().description;
-      phtoProfile.src = docUser.data().photo;
+      userName.innerHTML = docUser.data().name;
+      userGrade.innerHTML = docUser.data().grade;
+      userDescription.innerHTML = docUser.data().description;
+      userPhoto.src = docUser.data().photo;
     });
   // DOM para el cerrar sesion
   const btnLogOut = document.querySelector('#btn-logout');
