@@ -12,7 +12,7 @@ export const registerView = () => {
     register(email, pass)
       .then((result) => {
         console.log(result);
-        createUser(result.user.uid, name, 'img/perfil.png', 'primaria/secundaria', email, 'Compartiendo conocimiento')
+        createUser(result.user.uid, name, 'img/perfil.png', 'grado', email, 'primaria/secundaria', 'sede')
           .then(() => {
             console.log('se creo el usuario');
           });

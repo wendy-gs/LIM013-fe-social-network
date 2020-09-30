@@ -1,7 +1,7 @@
 @import 'login.css';
 @import 'perfil.css';
 @import url(menu.css);
-@import url(timeline.css);
+@import url(timelinemod.css);
 @import url(register.css);
 
 * {
@@ -12,6 +12,6 @@
     margin: 0;
     font-family: "Helvetica", sans-serif;
     font-size: 17px;
-    background: #E5EBF9;
+    background: #ffffff;
     color:#007cba;
 }

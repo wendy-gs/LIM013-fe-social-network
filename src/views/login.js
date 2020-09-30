@@ -51,7 +51,7 @@ export const loginPrincipal = () => {
             if (doc.exists) {
               console.log('Usuario ya existe no es necesario crear uno nuevo');
             } else {
-              createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Compartiendo conocimiento')
+              createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'grado', result.user.email, 'primaria/secundaria', 'sede')
                 .then(() => {
                   console.log('se creo usuario');
                 });
@@ -74,7 +74,7 @@ export const loginPrincipal = () => {
             if (doc.exists) {
               console.log('Usuario ya existe no es necesario crear uno nuevo');
             } else {
-              createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Compartiendo conocimiento')
+              createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'grado', result.user.email, 'primaria/secundaria', 'sede')
                 .then(() => {
                   console.log('se creo usuario');
                 });

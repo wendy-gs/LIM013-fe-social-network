@@ -10,11 +10,11 @@ export const timelineView = () => {
   <section id="timelineView">
     <section id="profile">
       <img id='photo-profile' alt="profile-picture">
-      <ul class="profile-data">
-        <li class="name"></li>
-        <li class="grade"></li>
-        <li class="description"></li>
-      </ul>
+      <p><span class="name"></span></p>
+      <hr>
+      <p><i class="fas fa-user-graduate"></i>Nivel <span  class="level"></span></p>
+      <p><i class="fas fa-graduation-cap"></i>Grado <span  class="grade"></span></p>
+      <p><i class="fas fa-map-marker-alt"></i>Sede <span class="campus"></span></p>
     </section>
 
     <section class="all-post">
@@ -61,15 +61,17 @@ export const timelineView = () => {
   const div = document.createElement('div');
   div.innerHTML = timeline;
   const userName = div.querySelector('.name');
+  const userLevel = div.querySelector('.level');
   const userGrade = div.querySelector('.grade');
-  const userDescription = div.querySelector('.description');
+  const userCampus = div.querySelector('.campus');
   const userPhoto = div.querySelector('#photo-profile');
   // Llenado con los datos del usuario
   dataUser(user.uid)
     .then((docUser) => {
       userName.innerHTML = docUser.data().name;
+      userLevel.innerHTML = docUser.data().level;
       userGrade.innerHTML = docUser.data().grade;
-      userDescription.innerHTML = docUser.data().description;
+      userCampus.innerHTML = docUser.data().campus;
       userPhoto.src = docUser.data().photo;
     });
   // DOM para el cerrar sesion
