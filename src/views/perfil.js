@@ -21,4 +21,4 @@ export const Perfil = () => {
   const div = document.createElement('div');
   div.innerHTML = viewPerfil;
   return div;
-}
+};

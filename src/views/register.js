@@ -81,10 +81,17 @@ export const registerView = () => {
     } else if (pass !== passCheck) {
       alert('pass diferente');
     } else {
-      console.log(name, email);
       registerUser(name, email, pass);
     }
   });
 
   return div;
 };
+
+
+/* <li>
+          <label for='form-grade'></label>
+     <input type='text' id='form-grade' name='form-grade' placeholder='Indica en qué grado estás'>
+        </li>
+         */
+

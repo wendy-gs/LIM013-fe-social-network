@@ -1,6 +1,6 @@
 import { logIn, logInFb, logInGm } from '../model/firebase-auth.js';
 
-import { createUser } from '../model/firebase-user.js';
+import { createUser, dataUser } from '../model/firebase-user.js';
 
 export const loginPrincipal = () => {
   const viewLogin = ` 
@@ -46,16 +46,22 @@ export const loginPrincipal = () => {
     e.preventDefault();
     logInGm()
       .then((result) => {
-        createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Compartiendo conocimiento')
-          .then(() => {
-            console.log('se creo usuario');
+        dataUser(result.user.uid)
+          .then((doc) => {
+            if (doc.exists) {
+              console.log('Usuario ya existe no es necesario crear uno nuevo');
+            } else {
+              createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Compartiendo conocimiento')
+                .then(() => {
+                  console.log('se creo usuario');
+                });
+            }
           });
         window.location.hash = '#/Inicio';
       }).catch((error) => {
         console.log('error de login', error);
       });
   });
-
   /* Inicio de sesión con Facebook */
   const btnFb = div.querySelector('#btn-fb');
 
@@ -63,9 +69,16 @@ export const loginPrincipal = () => {
     e.preventDefault();
     logInFb()
       .then((result) => {
-        createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Compartiendo conocimiento')
-          .then(() => {
-            console.log('se creo usuario');
+        dataUser(result.user.uid)
+          .then((doc) => {
+            if (doc.exists) {
+              console.log('Usuario ya existe no es necesario crear uno nuevo');
+            } else {
+              createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'primaria/secundaria', result.user.email, 'Compartiendo conocimiento')
+                .then(() => {
+                  console.log('se creo usuario');
+                });
+            }
           });
         window.location.hash = '#/Inicio';
       })
@@ -88,7 +101,6 @@ export const loginPrincipal = () => {
       })
       .catch(() => {
         div.querySelector('#messages-error').innerHTML = '⚠️ Correo o clave no son correctos.';
-        console.log('credenciales incorrectos');
       });
   });
   return div;

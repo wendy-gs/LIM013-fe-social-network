@@ -16,13 +16,11 @@ export const changeView = (hash) => {
       break;
     }
     case '#/Inicio': {
-      console.log('inicio');
       headerElem.classList.add('mostrar');
       container.appendChild(components.timeline());
       break;
     }
     case '#/Perfil': {
-      console.log('perfil');
       container.appendChild(components.perfil());
       break;
     }
