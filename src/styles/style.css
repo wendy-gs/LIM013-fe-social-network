@@ -8,10 +8,26 @@
     margin: 0;
 }
 
- body{
+body {
     margin: 0;
     font-family: "Helvetica", sans-serif;
     font-size: 17px;
     background: #ffffff;
     color:#007cba;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display:none;
+}
+
+@media screen and (min-width: 890px)  {
+    main {
+        display: flex;
+        flex-direction: row;
+    }
 }

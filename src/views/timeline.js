@@ -80,7 +80,7 @@ export const timelineView = () => {
     logOut()
       .then(() => {
         console.log('salio de logeo');
-        window.location.hash = '#/';
+        window.location.hash = '#/Cerrar';
         document.querySelector('#nav').classList.remove('mostrar');
       });
   });

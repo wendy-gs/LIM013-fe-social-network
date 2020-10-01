@@ -1,6 +1,7 @@
 .imagen-celular{
 	display: none;
 }
+
 #view-login-desktop{
 		display: flex;
 		width: 100%;
@@ -11,7 +12,7 @@
     width: 50%;
 }
 #img-colegio{
-		width: 100%;
+		width: 50vw;
 		height: 100vh;
 }
 .formulario-login{
@@ -94,10 +95,14 @@
 	color: #f7971c;
 	font-weight: bold;
 }
+<<<<<<< HEAD
 #messages-error{
 	color:#F32B17;
 	font-weight: bold;
 }
+=======
+
+>>>>>>> 41a3aef2d4f1d8a14b341652cdce10354cce707a
 @media (max-width:600px){
 	.saludo{
 		display: none;
