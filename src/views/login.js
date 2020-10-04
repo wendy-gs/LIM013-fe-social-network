@@ -12,9 +12,9 @@ export const loginPrincipal = () => {
       <div id="formulario-principal">
         <form id="form-login">
           <i class="fas fa-envelope-square"></i>
-          <input type="text" id="correo" name="correo" placeholder="Correo Electrónico" class="input-form" required/><br>
+          <input type="text" id="correo" name="correo" placeholder="Correo Electrónico" class="input-form" autocomplete='off' required /><br>
           <i class="fas fa-lock"></i>
-          <input type="password" id="clave" name="clave" placeholder="Contraseña"class="input-form" required/><br>
+          <input type="password" id="clave" name="clave" placeholder="Contraseña"class="input-form" autocomplete='off' required/><br>
           <p id='messages-error'></p>
           <button  type="submit" id="btn-ingresar">INGRESAR</button>
           <p>O ingresa con</p>
@@ -42,14 +42,15 @@ export const loginPrincipal = () => {
           .then((doc) => {
             if (doc.exists) {
               console.log('Usuario ya existe no es necesario crear uno nuevo');
+              window.location.hash = '#/Inicio';
             } else {
               createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'grado', result.user.email, 'primaria/secundaria', 'sede')
                 .then(() => {
                   console.log('se creo usuario');
+                  window.location.hash = '#/Inicio';
                 });
             }
           });
-        window.location.hash = '#/Inicio';
       }).catch((error) => {
         console.log('error de login', error);
       });
@@ -65,14 +66,15 @@ export const loginPrincipal = () => {
           .then((doc) => {
             if (doc.exists) {
               console.log('Usuario ya existe no es necesario crear uno nuevo');
+              window.location.hash = '#/Inicio';
             } else {
               createUser(result.user.uid, result.user.displayName, result.user.photoURL, 'grado', result.user.email, 'primaria/secundaria', 'sede')
                 .then(() => {
                   console.log('se creo usuario');
+                  window.location.hash = '#/Inicio';
                 });
             }
           });
-        window.location.hash = '#/Inicio';
       })
       .catch((error) => {
         console.log('error login', error);

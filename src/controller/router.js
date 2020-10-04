@@ -1,19 +1,15 @@
 import { components } from '../views/index.js';
 //  Funcion de cambios de rutas
 export const changeView = (hash) => {
+  window.location.hash = hash;
   const headerElem = document.querySelector('#nav');
   const aside = document.body.getElementsByTagName('aside')[0];
   const container = document.getElementById('container');
   container.innerHTML = '';
   switch (hash) {
-    case '': {
-      aside.classList.remove('hidden');
-      container.appendChild(components.login());
-      break;
-    }
-    case '#/Cerrar': {
-      headerElem.classList.remove('mostrar');
-      aside.classList.remove('hidden');
+    case '':
+    case '#/': {
+      headerElem.classList.remove('show');
       container.appendChild(components.login());
       break;
     }
@@ -23,8 +19,7 @@ export const changeView = (hash) => {
       break;
     }
     case '#/Inicio': {
-      headerElem.classList.add('mostrar');
-      aside.classList.add('hidden');
+      headerElem.classList.add('show');
       container.appendChild(components.timeline());
       break;
     }
