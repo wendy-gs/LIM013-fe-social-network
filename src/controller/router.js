@@ -3,7 +3,6 @@ import { components } from '../views/index.js';
 export const changeView = (hash) => {
   window.location.hash = hash;
   const headerElem = document.querySelector('#nav');
-  const aside = document.body.getElementsByTagName('aside')[0];
   const container = document.getElementById('container');
   container.innerHTML = '';
   switch (hash) {
@@ -14,7 +13,6 @@ export const changeView = (hash) => {
       break;
     }
     case '#/Registro': {
-      aside.classList.remove('hidden');
       container.appendChild(components.register());
       break;
     }
@@ -24,7 +22,6 @@ export const changeView = (hash) => {
       break;
     }
     case '#/Perfil': {
-      aside.classList.add('hidden');
       container.appendChild(components.perfil());
       break;
     }
