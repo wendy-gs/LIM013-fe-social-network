@@ -1,6 +1,6 @@
 import { logOut } from '../model/firebase-auth.js';
 
-import { dataUser } from '../model/firebase-user.js';
+import { dataUser, loadingInfo } from '../model/firebase-user.js';
 
 import { createPost, getAllPost } from '../model/firebase-posts.js';
 
@@ -8,28 +8,35 @@ import { uploadImgPost } from '../model/storage.js';
 
 import { allPost } from './postPublished.js';
 
-export const timelineView = () => {
+export const timelineView = (arrayPost) => {
   //  Obtener el usuario que accedió
   const user = firebase.auth().currentUser;
+  loadingInfo();
+  const userName =  localStorage.getItem('name');
+  const userLevel = localStorage.getItem('level');
+  const userGrade = localStorage.getItem('grade');
+  const userCampus = localStorage.getItem('campus');
+  const userPhoto = localStorage.getItem('userphoto');
+  
   const timeline = `
     <!-- PERFIL CON OPCIÓN PARA POSTEAR -->
   <section id="timelineView">
     <section id="profile" class ='card'>
       <div class="header-profile">
-      <img id='photo-profile' alt="profile-picture">
-      <p class="name"></p>
+      <img id='photo-profile' src='${userPhoto}' alt="profile-picture">
+      <p class="name">${userName}</p>
       </div>
-      <p><i class="fas fa-user-graduate"></i>Nivel <span  class="level"></span></p>
-      <p><i class="fas fa-graduation-cap"></i>Grado <span  class="grade"></span></p>
-      <p><i class="fas fa-map-marker-alt"></i>Sede <span class="campus"></span></p>
+      <p><i class="fas fa-user-graduate"></i>Nivel <span  class="level">${userLevel}</span></p>
+      <p><i class="fas fa-graduation-cap"></i>Grado <span  class="grade">${userGrade}</span></p>
+      <p><i class="fas fa-map-marker-alt"></i>Sede <span class="campus">${userCampus}</span></p>
     </section>
 
     <section class="all-post">
       <section class="post">
         <div class="header-post">
           <div class='header-post-data'>
-            <img id="photo-user-post" class="photo-user">
-            <p id="name-user-post"></p>
+            <img id="photo-user-post" class="photo-user" src='${userPhoto}'>
+            <p id="name-user-post">${userName}</p>
           </div>
           <select id="post-new-privacy">
             <option value="public">🌎 Público</option>
@@ -56,7 +63,7 @@ export const timelineView = () => {
     </section>
   </section> `;
   const div = document.createElement('div');
-  div.innerHTML = timeline;
+  div.innerHTML = timeline;/*
   const userName = div.querySelector('.name');
   const userLevel = div.querySelector('.level');
   const userGrade = div.querySelector('.grade');
@@ -74,7 +81,7 @@ export const timelineView = () => {
       userPhoto.src = docUser.data().photo;
       userPost.src = docUser.data().photo;
       userNamePost.innerHTML = docUser.data().name;
-    });
+    });*/
   let file = '';
   let dataURL = '';
   // La previsualizacion de la imagen a subir en el posts
@@ -104,32 +111,29 @@ export const timelineView = () => {
     const contentPost = div.querySelector('#post-text').value;
     const status = div.querySelector('#post-new-privacy').value;
     const date = new Date().toLocaleString();
-    div.querySelector('#post-text').value = '';
-    showPicture.src = '';
     btnCancelImg.classList.add('hide');
     if (file === '') {
-      createPost(user.uid, contentPost, '', status, date);
-    } else {
+      createPost(user.uid, contentPost, '', status, date, userName, userPhoto);
+    }else{
       uploadImgPost(file, user.uid)
-        .then((url) => {
-          createPost(user.uid, contentPost, url, status, date);
-          file = '';
-        });
+      .then((url)=>{
+        createPost(user.uid, contentPost, url, status, date, userName, userPhoto);
+      });
     }
+    div.querySelector('#post-text').value = '';
+    showPicture.src = '';
+    file = '';       
   });
-
+  
   // Se muestran todos los post
-  const postSeccion = div.querySelector('#post-published');
-  getAllPost((arrayPost) => {
-    postSeccion.innerHTML = '';
-    arrayPost.forEach((post) => {
-      dataUser(post.userId)
-        .then((docUser) => {
-          postSeccion.appendChild(allPost(post, docUser.data()));
-        });
-    });
+ const postSeccion = div.querySelector('#post-published');
+ getAllPost( (arrayPost) =>{
+  postSeccion.innerHTML='';
+  arrayPost.forEach((post) => {
+    postSeccion.appendChild(allPost(post));
   });
-
+ });
+ 
   // DOM para el cerrar sesion
   const btnLogOut = document.querySelector('#btn-logout');
   btnLogOut.addEventListener('click', () => {

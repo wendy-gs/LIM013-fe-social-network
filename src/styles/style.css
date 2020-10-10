@@ -15,8 +15,7 @@ body {
     margin: 0;
     font-family: "Helvetica", sans-serif;
     font-size: 17px;
-    background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(242,242,242,1) 53%, rgba(227,223,223,1) 72%, rgba(208,206,206,1) 100%);
+    background: rgb(255,255,255); 
     color:#007cba;
 }
 

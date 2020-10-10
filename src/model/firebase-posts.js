@@ -1,5 +1,7 @@
-export const createPost = (id, content, imgPost, privacy, time) => firebase.firestore().collection('posts').add({
+export const createPost = (id, content, imgPost, privacy, time, userName, userPhoto) => firebase.firestore().collection('posts').add({
   userId: id,
+  name: userName,
+  photo: userPhoto,
   contentPost: content,
   img: imgPost,
   state: privacy,
@@ -14,6 +16,8 @@ export const getAllPost = callback => firebase.firestore().collection('posts')
     querySnapshot.forEach((doc) => {
       arrayPost.push({
         id: doc.id,
+        name: doc.data().name,
+        photo: doc.data().photo,
         userId: doc.data().userId,
         content: doc.data().contentPost,
         img: doc.data().img,

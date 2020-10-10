@@ -1,4 +1,7 @@
 import { components } from '../views/index.js';
+
+import { getAllPost } from '../model/firebase-posts.js';
+
 //  Funcion de cambios de rutas
 export const changeView = (hash) => {
   window.location.hash = hash;
