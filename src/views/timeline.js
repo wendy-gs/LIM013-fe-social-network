@@ -1,23 +1,20 @@
 import { logOut } from '../model/firebase-auth.js';
 
-import { dataUser, loadingInfo } from '../model/firebase-user.js';
-
 import { createPost, getAllPost } from '../model/firebase-posts.js';
 
 import { uploadImgPost } from '../model/storage.js';
 
 import { allPost } from './postPublished.js';
 
-export const timelineView = (arrayPost) => {
+export const timelineView = (resultUser) => {
   //  Obtener el usuario que accedió
+  const userName = resultUser.data().name;
+  const userLevel = resultUser.data().level;
+  const userGrade =  resultUser.data().grade;
+  const userCampus = resultUser.data().campus;
+  const userPhoto = resultUser.data().photo;
   const user = firebase.auth().currentUser;
-  loadingInfo();
-  const userName =  localStorage.getItem('name');
-  const userLevel = localStorage.getItem('level');
-  const userGrade = localStorage.getItem('grade');
-  const userCampus = localStorage.getItem('campus');
-  const userPhoto = localStorage.getItem('userphoto');
-  
+
   const timeline = `
     <!-- PERFIL CON OPCIÓN PARA POSTEAR -->
   <section id="timelineView">
@@ -30,7 +27,6 @@ export const timelineView = (arrayPost) => {
       <p><i class="fas fa-graduation-cap"></i>Grado <span  class="grade">${userGrade}</span></p>
       <p><i class="fas fa-map-marker-alt"></i>Sede <span class="campus">${userCampus}</span></p>
     </section>
-
     <section class="all-post">
       <section class="post">
         <div class="header-post">
@@ -62,26 +58,9 @@ export const timelineView = (arrayPost) => {
       </section>
     </section>
   </section> `;
+
   const div = document.createElement('div');
-  div.innerHTML = timeline;/*
-  const userName = div.querySelector('.name');
-  const userLevel = div.querySelector('.level');
-  const userGrade = div.querySelector('.grade');
-  const userCampus = div.querySelector('.campus');
-  const userPhoto = div.querySelector('#photo-profile');
-  const userPost = div.querySelector('#photo-user-post');
-  const userNamePost = div.querySelector('#name-user-post');
-  // Llenado con los datos del usuario
-  dataUser(user.uid)
-    .then((docUser) => {
-      userName.innerHTML = docUser.data().name;
-      userLevel.innerHTML = docUser.data().level;
-      userGrade.innerHTML = docUser.data().grade;
-      userCampus.innerHTML = docUser.data().campus;
-      userPhoto.src = docUser.data().photo;
-      userPost.src = docUser.data().photo;
-      userNamePost.innerHTML = docUser.data().name;
-    });*/
+  div.innerHTML = timeline;
   let file = '';
   let dataURL = '';
   // La previsualizacion de la imagen a subir en el posts
@@ -130,7 +109,7 @@ export const timelineView = (arrayPost) => {
  getAllPost( (arrayPost) =>{
   postSeccion.innerHTML='';
   arrayPost.forEach((post) => {
-    postSeccion.appendChild(allPost(post));
+    postSeccion.appendChild(allPost(post,resultUser));
   });
  });
  

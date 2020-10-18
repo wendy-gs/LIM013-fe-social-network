@@ -23,15 +23,7 @@ export const validationUser = callback => firebase.auth().onAuthStateChanged((us
   }
   return callback(route);
 });
-
-export const loadingInfo = () => {
-  const currentUser = user();
-  dataUser(currentUser.uid).then((doc) => {
-    localStorage.setItem('name', doc.data().name);
-    localStorage.setItem('level', doc.data().level);
-    localStorage.setItem('grade', doc.data().grade);
-    localStorage.setItem('campus', doc.data().campus);
-    localStorage.setItem('userphoto', doc.data().photo);
-    localStorage.setItem('userId', currentUser.uid);
-  });
-};
+export const dataUserConecting= (iduser,callback )=> firebase.firestore().collection('users').doc(iduser).get()
+.then((docuser) => {
+  callback(docuser);
+});

@@ -1,10 +1,11 @@
 import { components } from '../views/index.js';
 
-import { getAllPost } from '../model/firebase-posts.js';
+import { dataUserConecting } from '../model/firebase-user.js';
 
 //  Funcion de cambios de rutas
 export const changeView = (hash) => {
   window.location.hash = hash;
+  const user = firebase.auth().currentUser;
   const headerElem = document.querySelector('#nav');
   const container = document.getElementById('container');
   container.innerHTML = '';
@@ -21,8 +22,10 @@ export const changeView = (hash) => {
     }
     case '#/Inicio': {
       headerElem.classList.add('show');
-      container.appendChild(components.timeline());
-      break;
+      dataUserConecting(user.uid, (resultUser) =>{
+      container.appendChild(components.timeline(resultUser));
+    });
+    break;
     }
     case '#/Perfil': {
       container.appendChild(components.perfil());

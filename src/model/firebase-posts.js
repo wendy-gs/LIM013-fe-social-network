@@ -9,6 +9,13 @@ export const createPost = (id, content, imgPost, privacy, time, userName, userPh
   likes: [],
 });
 
+export const deleteDoc = (collection, id) => firebase.firestore().collection(collection).doc(id).delete();
+
+export const updatePost = (id, postText, postState) => firebase.firestore().collection('posts').doc(id).update({
+  contentPost: postText,
+  state: postState,
+});
+
 export const getAllPost = callback => firebase.firestore().collection('posts')
 .orderBy('date','desc')  
 .onSnapshot((querySnapshot) => {
@@ -28,3 +35,4 @@ export const getAllPost = callback => firebase.firestore().collection('posts')
     });
     callback(arrayPost);
   });
+export const updateLike = (id, likes) => firebase.firestore().collection('posts').doc(id).update({likes});

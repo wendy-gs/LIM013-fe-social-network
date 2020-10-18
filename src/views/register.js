@@ -45,7 +45,7 @@ export const registerView = () => {
   div.innerHTML = registerTmplt;
 
   /* Crear nueva cuenta de usuario */
-  const btnRegister = div.querySelector('#btn-register');
+  const btnRegister = div.querySelector('#form-register');
   btnRegister.addEventListener('submit', (e) => {
     e.preventDefault();
     const name = div.querySelector('#form-name').value;
@@ -54,7 +54,7 @@ export const registerView = () => {
     const pass = div.querySelector('#form-pass').value;
     const passCheck = div.querySelector('#form-pass-check').value;
     const message = div.querySelector('#msg-error');
-    const fullName = name + lastName;
+    const fullName = name +' '+ lastName;
     if (pass !== passCheck) {
       message.innerHTML = '⚠️ Contraseñas no coinciden';
     } else {
@@ -63,11 +63,12 @@ export const registerView = () => {
           createUser(result.user.uid, fullName, 'img/perfil.png', 'grado', email, 'primaria/secundaria', 'sede')
             .then(() => {
               console.log('se creo el usuario');
+              logIn(email, pass)
+               .then(() => {
+                window.location.hash = '#/Inicio';
             });
-          logIn(email, pass)
-            .then(() => {
-              window.location.hash = '#/Inicio';
             });
+          
         })
         .catch(() => {
           message.innerHTML = '⚠️ Usuario ya existe';
