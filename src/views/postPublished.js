@@ -79,6 +79,7 @@ export const allPost = (post,resultUser) => {
     navPost.classList.add('hide');
     btnpost.classList.remove('hide');
     optionPrivaty.disabled =false;
+    btnSave.disabled =true;  
   });
   const editPost = () =>{
     postdivText.classList.remove('hide');
@@ -128,11 +129,9 @@ export const allPost = (post,resultUser) => {
   })
   const btnNewComment =viewpostpublish.querySelector('.btn-new-comment');
   btnNewComment.addEventListener('click', () => {
-    console.log(post.id,resultUser.data().name);
     const textcomment = viewpostpublish.querySelector(`#txtNewComm-${post.id}`).value;
     if(textcomment !== ''){
       const date = new Date().toLocaleString();
-      console.log(textcomment);
        createCommnets(post.id,date,resultUser.data().name,resultUser.data().photo,textcomment,resultUser.id);
     }
     viewpostpublish.querySelector(`#txtNewComm-${post.id}`).value='';

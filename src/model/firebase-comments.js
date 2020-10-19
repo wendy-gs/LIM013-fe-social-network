@@ -5,8 +5,12 @@ export const createCommnets = (idPost, date, name, photoUser,text,idUser) => fir
     idUserComment: idUser,
     textComment: text,
 });
+
+export const updateComments = (text,idPost,idcoment) => firebase.firestore().collection(`posts/${idPost}/comments`).doc(idcoment).update({
+  textComment :text,
+});
 export const getAllComments = (idPost, callback) => firebase.firestore().collection('posts').doc(idPost).collection('comments')
-  .orderBy('dateComment')
+  .orderBy('dateComment','desc')
   .onSnapshot((querySnapshot) =>{
     const arrayComment = [];
     querySnapshot.forEach((comment) =>{
@@ -16,6 +20,7 @@ export const getAllComments = (idPost, callback) => firebase.firestore().collect
         photo: comment.data().photoUser,
         date: comment.data().dateComment,
         textComment: comment.data().textComment,
+        idPost: idPost,
         iduser: comment.data().idUserComment,
       });
     });
