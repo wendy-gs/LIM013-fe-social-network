@@ -90,6 +90,7 @@ export const allPost = (post,resultUser) => {
   };
   btnCancel.addEventListener('click', () => {
     inputPost.value = postdivText.textContent;
+    optionPrivaty.value= `${post.state}`;
     editPost();
   });
   inputPost.addEventListener('input', ()=>{

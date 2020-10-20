@@ -1,13 +1,20 @@
 //  Crea un nuevo usuario
-export const createUser = (id, userName, userPhoto, userGrade, userEmail, userLevel, userCampus) => firebase.firestore().collection('users').doc(id).set({
+export const createUser = (id, userName, userPhoto, userEmail) => firebase.firestore().collection('users').doc(id).set({
   name: userName,
-  level: userLevel,
-  grade: userGrade,
+  level: 'Primaria',
+  grade: '1°',
   photo: userPhoto,
   email: userEmail,
-  campus: userCampus,
+  campus: 'Lima',
 });
-
+// Actualiza datos del usuario
+export const updateUser = (id,name ,photo , grade, level, campus) =>firebase.firestore().collection('users').doc(id).update({
+  name: name,
+  level: level,
+  grade: grade,
+  photo: photo,
+  campus: campus,
+});
 // Lee los datos de un usuario
 export const dataUser = usuario => firebase.firestore().collection('users').doc(usuario).get();
 
@@ -23,7 +30,7 @@ export const validationUser = callback => firebase.auth().onAuthStateChanged((us
   }
   return callback(route);
 });
-export const dataUserConecting= (iduser,callback )=> firebase.firestore().collection('users').doc(iduser).get()
-.then((docuser) => {
-  callback(docuser);
+export const dataUserConecting= (iduser,callback )=> firebase.firestore().collection('users').doc(iduser)
+.onSnapshot((querySnapshot) => {
+  callback(querySnapshot);
 });

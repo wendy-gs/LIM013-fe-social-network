@@ -1,28 +1,56 @@
+
+#view-perfil{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #F1F4FF;
+}
 .portada{
-    background-color:#EEF2F5 ;
-    width: 100%;
-    height: 36vh;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5%;
+	width: 100%;
+  display: flex;
+  flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	margin-bottom: 10px;
+	background-color: #ffffff;
 }
 #contendor-imagen{
+	width: 80%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    
+		align-items: center;
 }
 #portada-mensaje{
-    width: 90%;
+    width: 100%;
     min-width: 400px;
     min-height: 220px;
     max-height: 240px;
 }
-.input-perfil{
-    margin-bottom: 10%;
+#photo-viewprofile {
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+	position: relative;
+	margin-top: -70px;
 }
+#new-photo,#selectphoto{
+	font-size: x-large;
+	position: absolute;
+	top:355px;
+	left: 53%;
+	background-color:lightgray;
+	padding: 5px;
+	border-radius: 50%;
+}
+/*
 .formulario-actualizacion{
     display: flex;
     align-items: center;
     justify-content: center;
 }
+@media (max-width:600px){
+
+}*/

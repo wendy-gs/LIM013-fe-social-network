@@ -60,7 +60,7 @@ export const registerView = () => {
     } else {
       register(email, pass)
         .then((result) => {
-          createUser(result.user.uid, fullName, 'img/perfil.png', 'grado', email, 'primaria/secundaria', 'sede')
+          createUser(result.user.uid, fullName, 'img/perfil.png', email)
             .then(() => {
               console.log('se creo el usuario');
               logIn(email, pass)

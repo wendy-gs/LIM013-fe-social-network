@@ -28,7 +28,11 @@ export const changeView = (hash) => {
     break;
     }
     case '#/Perfil': {
-      container.appendChild(components.perfil());
+      headerElem.classList.add('show');
+      dataUserConecting(user.uid, (resultUser) =>{
+      container.innerHTML='';
+      container.appendChild(components.perfil(resultUser));
+      });
       break;
     }
     default: {

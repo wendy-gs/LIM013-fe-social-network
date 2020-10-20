@@ -23,9 +23,9 @@ export const timelineView = (resultUser) => {
       <img id='photo-profile' src='${userPhoto}' alt="profile-picture">
       <p class="name">${userName}</p>
       </div>
-      <p><i class="fas fa-user-graduate"></i>Nivel <span  class="level">${userLevel}</span></p>
-      <p><i class="fas fa-graduation-cap"></i>Grado <span  class="grade">${userGrade}</span></p>
-      <p><i class="fas fa-map-marker-alt"></i>Sede <span class="campus">${userCampus}</span></p>
+      <p><i class="fas fa-user-graduate"></i>Nivel: <span  class="level">${userLevel}</span></p>
+      <p><i class="fas fa-graduation-cap"></i>Grado: <span  class="grade">${userGrade}</span></p>
+      <p><i class="fas fa-map-marker-alt"></i>Sede: <span class="campus">${userCampus}</span></p>
     </section>
     <section class="all-post">
       <section class="post">
@@ -109,7 +109,9 @@ export const timelineView = (resultUser) => {
  getAllPost( (arrayPost) =>{
   postSeccion.innerHTML='';
   arrayPost.forEach((post) => {
+    if((post.state === 'private' && post.userId === user.uid) || post.state === 'public'){
     postSeccion.appendChild(allPost(post,resultUser));
+  }
   });
  });
  

@@ -15,7 +15,10 @@ export const updatePost = (id, postText, postState) => firebase.firestore().coll
   contentPost: postText,
   state: postState,
 });
-
+export const updatePostUser = (id,name,photo) => firebase.firestore().collection('posts').doc(id).update({
+  name: name,
+  photo: photo,
+});
 export const getAllPost = callback => firebase.firestore().collection('posts')
 .orderBy('date','desc')  
 .onSnapshot((querySnapshot) => {
