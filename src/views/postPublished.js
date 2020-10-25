@@ -1,13 +1,11 @@
-import { user } from "../model/firebase-user.js";
+import { deleteDoc, updatePost, updateLike } from '../model/firebase-posts.js';
 
-import{ deleteDoc, updatePost, updateLike } from "../model/firebase-posts.js";
-
-import{ createCommnets, getAllComments } from "../model/firebase-comments.js";
+import { createComments, getAllComments } from '../model/firebase-comments.js';
 
 import { allComments } from './postComments.js';
 
-export const allPost = (post,resultUser) => {
-  const userId = user().uid;
+export const allPost = (post, resultUser) => {
+  const userId = firebase.auth().currentUser.uid;
   const viewpostpublish = document.createElement('article');
   viewpostpublish.innerHTML = `
      <div class='post'>
@@ -17,20 +15,20 @@ export const allPost = (post,resultUser) => {
            <div>
             <p>${post.name}</p>
             <div class='post-date-state'>
-              <p>${post.date}</p>
+              <p>${post.date.toDate().toLocaleString()}</p>
               <select id="post-new-privacy" disabled="true">
-                <option value="public" ${(post.state==='public')? 'selected':''}>🌎 Público</option>
-                <option value="private" ${(post.state==='public')? '':'selected'}>🔒 Privado</option>
+                <option value="public" ${(post.state === 'public') ? 'selected' : ''}>🌎 Público</option>
+                <option value="private" ${(post.state === 'public') ? '' : 'selected'}>🔒 Privado</option>
               </select>
             </div>
            </div> 
           </div>
            <div class="container-menu-post" id="containerMenu">
-              <button id='menu-${post.id}' class='${(userId !== post.userId)? 'hide' : 'photo-user btn-menu-post'}'><i class="fas fa-ellipsis-h"></i></button>
+              <button id='menu-${post.id}' class='${(resultUser.id !== post.userId) ? 'hide' : 'photo-user btn-menu-post'}'><i class="fas fa-ellipsis-h"></i></button>
               <nav class="nav-post hide" id="nav-${post.id}">
                 <ul class="menu-post">
-                  <li class="btn-post-edit" id="edit-${post.id}">Editar</li>
-                  <li class="btn-post-delete" id="delete-${post.id}">Eliminar</li>
+                  <li class="btn-post-menu" id="edit-${post.id}">Editar</li>
+                  <li class="btn-post-menu" id="delete-${post.id}">Eliminar</li>
                 </ul>
               </nav>
             </div>
@@ -38,13 +36,13 @@ export const allPost = (post,resultUser) => {
         <textarea class='hide post-text-area' id='inputPost-${post.id}'>${post.content}</textarea>
         <div id="div-post-${post.id}" class='post-publised'>${post.content}</div>
         <div class="hide buttons-post">
-          <button class="btn-save-post" id="btnSave">Guardar</button>
-          <button class="btn-cancel-post" id="btnCancel">Cancelar</button>
+          <button class="btn-post" id="btnSave">Guardar</button>
+          <button class="btn-post" id="btnCancel">Cancelar</button>
         </div>
         <div ><img class='cont-img-post' src='${post.img}'></div>
         <div class="footer-postpublised">
           <p class="counter-like">${post.likes.length}</p>
-          <button type="button" class="btn-like ${(post.likes.indexOf(userId)===-1)?'like-ligth': 'like-dark'}"><i class="far fa-thumbs-up"></i> Me gusta</button>
+          <button type="button" class="btn-like ${(post.likes.indexOf(userId) === -1) ? 'like-ligth' : 'like-dark'}"><i class="far fa-thumbs-up"></i> Me gusta</button>
           <button type="button" class="btn-comments"><i class="far fa-comment-alt"></i> Comentarios</button>
         </div>
         <section class="comments hide">
@@ -78,47 +76,45 @@ export const allPost = (post,resultUser) => {
     inputPost.focus();
     navPost.classList.add('hide');
     btnpost.classList.remove('hide');
-    optionPrivaty.disabled =false;
-    btnSave.disabled =true;  
+    optionPrivaty.disabled = false;
+    btnSave.disabled = true;
   });
-  const editPost = () =>{
+  const editPost = () => {
     postdivText.classList.remove('hide');
     inputPost.classList.add('hide');
     btnpost.classList.add('hide');
     optionPrivaty.disabled = true;
-
   };
   btnCancel.addEventListener('click', () => {
     inputPost.value = postdivText.textContent;
-    optionPrivaty.value= `${post.state}`;
+    optionPrivaty.value = `${post.state}`;
     editPost();
   });
-  inputPost.addEventListener('input', ()=>{
-    if(inputPost.value.trim() === ''){
-      btnSave.disabled =true;    
-    } else{
-      btnSave.disabled=false;
+  inputPost.addEventListener('input', () => {
+    if (inputPost.value.trim() === '') {
+      btnSave.disabled = true;
+    } else {
+      btnSave.disabled = false;
     }
   });
-  btnSave.addEventListener('click',() =>{
+  btnSave.addEventListener('click', () => {
     editPost();
     updatePost(post.id, inputPost.value, optionPrivaty.value);
-
   });
   // Eliminar post
   const btnDelete = viewpostpublish.querySelector(`#delete-${post.id}`);
   btnDelete.addEventListener('click', () => {
-    deleteDoc('posts',post.id)
+    deleteDoc('posts', post.id);
   });
-  //Contabilizador de like
+  // Contabilizador de like
   const btnLike = viewpostpublish.querySelector('.btn-like');
-  btnLike.addEventListener('click', ()=>{
+  btnLike.addEventListener('click', () => {
     const resultLike = post.likes.indexOf(userId);
-    if(resultLike === -1){
+    if (resultLike === -1) {
       post.likes.push(userId);
-      updateLike(post.id, post.likes)
-    }else {
-      post.likes.splice(resultLike,1);
+      updateLike(post.id, post.likes);
+    } else {
+      post.likes.splice(resultLike, 1);
       updateLike(post.id, post.likes);
     }
   });
@@ -127,26 +123,24 @@ export const allPost = (post,resultUser) => {
   const btnComment = viewpostpublish.querySelector('.btn-comments');
   btnComment.addEventListener('click', () => {
     comment.classList.toggle('hide');
-  })
-  const btnNewComment =viewpostpublish.querySelector('.btn-new-comment');
+  });
+  const btnNewComment = viewpostpublish.querySelector('.btn-new-comment');
   btnNewComment.addEventListener('click', () => {
     const textcomment = viewpostpublish.querySelector(`#txtNewComm-${post.id}`).value;
-    if(textcomment !== ''){
+    if (textcomment !== '') {
       const date = new Date().toLocaleString();
-       createCommnets(post.id,date,resultUser.data().name,resultUser.data().photo,textcomment,resultUser.id);
+      createComments(post.id, date, resultUser.data().name, resultUser.data().photo,
+        textcomment, resultUser.id);
     }
-    viewpostpublish.querySelector(`#txtNewComm-${post.id}`).value='';
+    viewpostpublish.querySelector(`#txtNewComm-${post.id}`).value = '';
   });
-// Mostrando comentarios
-const commentSection = viewpostpublish.querySelector('.all-comments')
-getAllComments(post.id, (arrayComment) => {
-  commentSection.innerHTML = '';
-  arrayComment.forEach((comment) =>{
-    commentSection.appendChild(allComments(comment,resultUser));
+  // Mostrando comentarios
+  const commentSection = viewpostpublish.querySelector('.all-comments');
+  getAllComments(post.id, (arrayComment) => {
+    commentSection.innerHTML = '';
+    arrayComment.forEach((comments) => {
+      commentSection.appendChild(allComments(comments, resultUser));
+    });
   });
-});
-
   return viewpostpublish;
 };
-
-/** <textarea id="textarea-${post.id}" class='post-publised' disabled="true">${post.content}</textarea> */

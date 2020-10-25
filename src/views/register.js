@@ -48,33 +48,31 @@ export const registerView = () => {
   const btnRegister = div.querySelector('#form-register');
   btnRegister.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = div.querySelector('#form-name').value;
-    const lastName = div.querySelector('#form-lastname').value;
+    // const name = div.querySelector('#form-name').value;
+    // const lastName = div.querySelector('#form-lastname').value;
     const email = div.querySelector('#form-email').value;
     const pass = div.querySelector('#form-pass').value;
     const passCheck = div.querySelector('#form-pass-check').value;
     const message = div.querySelector('#msg-error');
-    const fullName = name +' '+ lastName;
+    // const fullName = name.concat(lastName);
     if (pass !== passCheck) {
       message.innerHTML = '⚠️ Contraseñas no coinciden';
     } else {
       register(email, pass)
         .then((result) => {
-          createUser(result.user.uid, fullName, 'img/perfil.png', email)
+          createUser(result.user)
             .then(() => {
               console.log('se creo el usuario');
               logIn(email, pass)
-               .then(() => {
-                window.location.hash = '#/Inicio';
+                .then(() => {
+                  window.location.hash = '#/Inicio';
+                });
             });
-            });
-          
         })
         .catch(() => {
           message.innerHTML = '⚠️ Usuario ya existe';
         });
     }
   });
-
   return div;
 };

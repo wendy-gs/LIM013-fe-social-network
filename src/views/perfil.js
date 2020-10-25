@@ -1,16 +1,12 @@
-import { getAllPost } from '../model/firebase-posts.js';
-
-import { updateUser } from '../model/firebase-user.js';
+import { updateLote } from '../model/firebase-user.js';
 
 import { allPost } from './postPublished.js';
 
-import { updatePostUser } from '../model/firebase-posts.js';
-
 import { uploadImgUser } from '../model/storage.js';
 
-export const profileView = (resultUser) => {
+export const profileView = (resultUser, arrayPost) => {
   const profile = document.createElement('div');
-   profile.innerHTML = `
+  profile.innerHTML = `
     <section id="view-perfil">
     <div class="portada">
       <div id="contendor-imagen">
@@ -24,41 +20,46 @@ export const profileView = (resultUser) => {
      <h1 class="name">${resultUser.data().name}</h1>
     </div>
     <div class="form-update">
-      <form class='card'>
-        <fieldset>
+      <div class='card'>
+        <div>
         <label for ="levelUser"><i class="fas fa-user-graduate"></i>  Nivel</label>
         <select id="levelUser" disabled="true">
-          <option value="Primaria" ${(resultUser.data().level === "Primaria" )? 'selected' : ''}>Primaria</option>
-          <option value="Secundaria" ${(resultUser.data().level === "Secundaria" )? 'selected' : ''}>Secundaria</option>
-        </select> <br>
+          <option value="Primaria" ${(resultUser.data().level === 'Primaria') ? 'selected' : ''}>Primaria</option>
+          <option value="Secundaria" ${(resultUser.data().level === 'Secundaria') ? 'selected' : ''}>Secundaria</option>
+        </select> 
+        </div>
+        <div>
         <label for ="gradeUser"><i class="fas fa-graduation-cap"></i>  Grado</label>
         <select id="gradeUser" disabled="true">
-          <option value="1°" ${(resultUser.data().grade === "1°" )? 'selected' : ''}>1°</option>
-          <option value="2°" ${(resultUser.data().grade === "2°" )? 'selected' : ''}>2°</option>
-          <option value="3°" ${(resultUser.data().grade === "3°" )? 'selected' : ''}>3°</option>
-          <option value="4°" ${(resultUser.data().grade === "4°" )? 'selected' : ''}>4°</option>
-          <option value="5°" ${(resultUser.data().grade === "5°" )? 'selected' : ''}>5°</option>
-          <option value="6°" ${(resultUser.data().grade === "6°" )? 'selected' : ''}>6°</option>
-        </select><br>
+          <option value="1°" ${(resultUser.data().grade === '1°') ? 'selected' : ''}>1°</option>
+          <option value="2°" ${(resultUser.data().grade === '2°') ? 'selected' : ''}>2°</option>
+          <option value="3°" ${(resultUser.data().grade === '3°') ? 'selected' : ''}>3°</option>
+          <option value="4°" ${(resultUser.data().grade === '4°') ? 'selected' : ''}>4°</option>
+          <option value="5°" ${(resultUser.data().grade === '5°') ? 'selected' : ''}>5°</option>
+          <option value="6°" ${(resultUser.data().grade === '6°') ? 'selected' : ''}>6°</option>
+        </select>
+        </div>
+        <div>
         <label for ="campusUser"><i class="fas fa-map-marker-alt"></i>  Sede</label>
         <select id="campusUser" disabled="true">
-          <option value="Arequipa" ${(resultUser.data().campus === "Arequipa" )? 'selected' : ''}>Arequipa</option>
-          <option value="Chiclayo" ${(resultUser.data().campus === "Chiclayo" )? 'selected' : ''}>Chiclayo</option>
-          <option value="Lima" ${(resultUser.data().campus === "Lima" )? 'selected' : ''}>Lima</option>
-          <option value="Trujillo" ${(resultUser.data().campus === "Trujillo" )? 'selected' : ''}>Trujillo</option>
+          <option value="Arequipa" ${(resultUser.data().campus === 'Arequipa') ? 'selected' : ''}>Arequipa</option>
+          <option value="Chiclayo" ${(resultUser.data().campus === 'Chiclayo') ? 'selected' : ''}>Chiclayo</option>
+          <option value="Lima" ${(resultUser.data().campus === 'Lima') ? 'selected' : ''}>Lima</option>
+          <option value="Trujillo" ${(resultUser.data().campus === 'Trujillo') ? 'selected' : ''}>Trujillo</option>
         </select>
-        </fieldset>
-        <button class="btn-save-post" id="btnSave">Guardar</button>
-        <button class="btn-cancel-post" id="btnCancel">Cancelar</button>
-        <button class='btn-update'>Actualizar Datos</button> 
-      </form>
+        </div>
+        <div class='container-btn'>
+        <button class="btn-save-post btn-post hide" id="btnSave">Guardar</button>
+        <button class="btn-cancel-post btn-post hide" id="btnCancel">Cancelar</button>
+        <button class='btn-update btn-post'>Actualizar Datos</button> 
+        </div>
+      </div>
       <section class='my-post all-post'>
       </section>
 
     </div>
   </section> `;
- 
-  //Editar los datos del usuario
+  // Editar los datos del usuario
   const selectphoto = profile.querySelector('#selectphoto');
   const btnphotouser = profile.querySelector('#new-photo');
   const photoProfile = profile.querySelector('#photo-viewprofile');
@@ -67,31 +68,43 @@ export const profileView = (resultUser) => {
   const selectLevel = profile.querySelector('#levelUser');
   const selectCampus = profile.querySelector('#campusUser');
   const btnupdate = profile.querySelector('.btn-update');
+  const btnCancel = profile.querySelector('.btn-cancel-post');
+  const btnSave = profile.querySelector('.btn-save-post');
 
-  btnupdate.addEventListener('click', () => {
-    selectGrade.disabled =false;
-    selectLevel.disabled =false;
-    selectCampus.disabled =false;
-    nameuser.contentEditable="true";
+  btnupdate.addEventListener('click', (e) => {
+    e.preventDefault();
+    selectGrade.disabled = false;
+    selectLevel.disabled = false;
+    selectCampus.disabled = false;
+    nameuser.contentEditable = 'true';
     nameuser.focus();
     btnphotouser.classList.remove('hide');
+    btnCancel.classList.remove('hide');
+    btnSave.classList.remove('hide');
+    btnupdate.classList.add('hide');
   });
-  let file='';
-  const btnCancel = profile.querySelector('.btn-cancel-post');
-  btnCancel.addEventListener('click', ()=>{
-    selectGrade.value=`${resultUser.data().grade}`;
-    selectLevel.value=`${resultUser.data().level}`;
-    selectCampus.value= `${resultUser.data().campus}`;
-    nameuser.textContent=`${resultUser.data().name}`;
+  const editrofile = () => {
+    selectGrade.disabled = true;
+    selectLevel.disabled = true;
+    selectCampus.disabled = true;
     btnphotouser.classList.add('hide');
-    photoProfile.src=`${resultUser.data().photo}`;
-    file='';
-    selectGrade.disabled =true;
-    selectLevel.disabled =true;
-    selectCampus.disabled =true;
-  })
-  //editando foto de usuario
-  
+    nameuser.contentEditable = 'false';
+    btnCancel.classList.add('hide');
+    btnSave.classList.add('hide');
+    btnupdate.classList.remove('hide');
+  };
+  let file = '';
+  btnCancel.addEventListener('click', (e) => {
+    e.preventDefault();
+    selectGrade.value = `${resultUser.data().grade}`;
+    selectLevel.value = `${resultUser.data().level}`;
+    selectCampus.value = `${resultUser.data().campus}`;
+    nameuser.textContent = `${resultUser.data().name}`;
+    photoProfile.src = `${resultUser.data().photo}`;
+    file = '';
+    editrofile();
+  });
+  // editando foto de usuario
   selectphoto.addEventListener('change', (e) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -100,42 +113,26 @@ export const profileView = (resultUser) => {
     reader.readAsDataURL(e.target.files[0]);
     file = e.target.files[0];
   });
-  const btnSave = profile.querySelector('.btn-save-post');
-  btnSave.addEventListener('click', () =>{
-    if(file===''){
-      updateUser(resultUser.id,nameuser.textContent,`${resultUser.data().photo}`,selectGrade.value,selectLevel.value,selectCampus.value);
-      getAllPost((arrayPost)=>{
-        arrayPost.forEach((post)=>{
-          if(post.userId === resultUser.id){
-           updatePostUser(post.id, nameuser.textContent,`${resultUser.data().photo}`);
-          }
-        });
-      });
-    }else{
+  btnSave.addEventListener('click', (e) => {
+    e.preventDefault();
+    editrofile();
+    if (file === '') {
+      updateLote(resultUser.id, nameuser.textContent, selectLevel.value, selectGrade.value, `${resultUser.data().photo}`, selectCampus.value, arrayPost);
+    } else {
       uploadImgUser(file, resultUser.id)
-      .then((url) =>{
-        updateUser(resultUser.id,nameuser.textContent,url,selectGrade.value,selectLevel.value,selectCampus.value);
-        getAllPost((arrayPost)=>{
-          arrayPost.forEach((post)=>{
-            if(post.userId === resultUser.id){
-             updatePostUser(post.id, nameuser.textContent,url);
-            }
-          });
+        .then((url) => {
+          updateLote(resultUser.id, nameuser.textContent, selectLevel.value, selectGrade.value,
+            url, selectCampus.value, arrayPost);
         });
-      });
     }
-
-  })
-  //Mostrando solo los post del usuario
-  const myPost =profile.querySelector('.my-post');
-  getAllPost((arrayPost)=>{
-    myPost.innerHTML='';
-    arrayPost.forEach((post)=>{
-      console.log(resultUser.id);
-      if(post.userId === resultUser.id){
-        myPost.appendChild(allPost(post,resultUser));
-      }
-    });
+    file = '';
+  });
+  // Mostrando solo los post del usuario
+  const myPost = profile.querySelector('.my-post');
+  arrayPost.forEach((post) => {
+    if (post.userId === resultUser.id) {
+      myPost.appendChild(allPost(post, resultUser));
+    }
   });
   return profile;
 };

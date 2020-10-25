@@ -84,16 +84,15 @@
   #section-register {
     display: flex;
     width: 100%;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+	  justify-content: center;
+	  align-items: center;
+	  height: 100vh;
 	}
   .item-register{
 		flex: 1;
 	}
 	#form-register{
 		width: 70%;
-	/*	border:solid 6px #595C59;*/
 	}
 	.cont-avatar{
 		margin-top: 40px;
@@ -104,7 +103,7 @@
 	}
 	.cont-avatar h1{
 		font-size: 28px;
-		color:  #007cba;;
+		color:  #007cba;
 	}
 	.div-input {
 		height: 40px;
@@ -132,5 +131,4 @@
 		display: inline-block;
 		margin-top: 20px;
 	}
-
 }

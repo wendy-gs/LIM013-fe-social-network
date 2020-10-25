@@ -2,6 +2,8 @@ import { components } from '../views/index.js';
 
 import { dataUserConecting } from '../model/firebase-user.js';
 
+import { getAllPost } from '../model/firebase-posts.js';
+
 //  Funcion de cambios de rutas
 export const changeView = (hash) => {
   window.location.hash = hash;
@@ -22,16 +24,21 @@ export const changeView = (hash) => {
     }
     case '#/Inicio': {
       headerElem.classList.add('show');
-      dataUserConecting(user.uid, (resultUser) =>{
-      container.appendChild(components.timeline(resultUser));
-    });
-    break;
+      dataUserConecting(user.uid, (resultUser) => {
+        getAllPost((arrayPost) => {
+          container.innerHTML = '';
+          container.appendChild(components.timeline(resultUser, arrayPost));
+        });
+      });
+      break;
     }
     case '#/Perfil': {
       headerElem.classList.add('show');
-      dataUserConecting(user.uid, (resultUser) =>{
-      container.innerHTML='';
-      container.appendChild(components.perfil(resultUser));
+      dataUserConecting(user.uid, (resultUser) => {
+        getAllPost((arrayPost) => {
+          container.innerHTML = '';
+          container.appendChild(components.perfil(resultUser, arrayPost));
+        });
       });
       break;
     }

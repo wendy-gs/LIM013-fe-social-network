@@ -1,6 +1,9 @@
 // Este es el punto de entrada de tu aplicacion
 import { changeView } from './controller/router.js';
+
 import { validationUser } from './model/firebase-user.js';
+
+import { logOut } from './model/firebase-auth.js';
 
 /* Configuraciones iniciales de Firebase */
 /* For Firebase JS SDK v7.20.0 and later, measurementId is optional */
@@ -19,6 +22,17 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// DOM para el cerrar sesion
+const btnLogOut = document.querySelector('#btn-logout');
+btnLogOut.addEventListener('click', () => {
+  console.log('click en salir');
+  logOut()
+    .then(() => {
+      console.log('salio de logeo');
+      window.location.hash = '#/Cerrar';
+      document.querySelector('#nav').classList.remove('mostrar');
+    });
+});
 const initialize = () => {
   validationUser(changeView);
   // window.addEventListener('hashchange', () => validationUser(changeView));

@@ -1,16 +1,15 @@
-import { logOut } from '../model/firebase-auth.js';
 
-import { createPost, getAllPost } from '../model/firebase-posts.js';
+import { createPost } from '../model/firebase-posts.js';
 
 import { uploadImgPost } from '../model/storage.js';
 
 import { allPost } from './postPublished.js';
 
-export const timelineView = (resultUser) => {
+export const timelineView = (resultUser, arrayPost) => {
   //  Obtener el usuario que accedió
   const userName = resultUser.data().name;
   const userLevel = resultUser.data().level;
-  const userGrade =  resultUser.data().grade;
+  const userGrade = resultUser.data().grade;
   const userCampus = resultUser.data().campus;
   const userPhoto = resultUser.data().photo;
   const user = firebase.auth().currentUser;
@@ -23,9 +22,9 @@ export const timelineView = (resultUser) => {
       <img id='photo-profile' src='${userPhoto}' alt="profile-picture">
       <p class="name">${userName}</p>
       </div>
-      <p><i class="fas fa-user-graduate"></i>Nivel: <span  class="level">${userLevel}</span></p>
-      <p><i class="fas fa-graduation-cap"></i>Grado: <span  class="grade">${userGrade}</span></p>
-      <p><i class="fas fa-map-marker-alt"></i>Sede: <span class="campus">${userCampus}</span></p>
+      <p><i class="fas fa-user-graduate"></i> Nivel: <span  class="level">${userLevel}</span></p>
+      <p><i class="fas fa-graduation-cap"></i> Grado: <span  class="grade">${userGrade}</span></p>
+      <p><i class="fas fa-map-marker-alt"></i> Sede: <span class="campus">${userCampus}</span></p>
     </section>
     <section class="all-post">
       <section class="post">
@@ -49,7 +48,7 @@ export const timelineView = (resultUser) => {
             <input type="file" id="selectImage" class="upload" accept="image/jpeg, image/png, image/gif">
             <i id="img-post" class="fas fa-file-image"></i>
           </label>
-        <button id="btnNewPost" class="post-btn">Publicar</button>
+        <button id="btnNewPost" class="btn-post">Publicar</button>
         </div>
       </section>
 
@@ -89,41 +88,35 @@ export const timelineView = (resultUser) => {
   btnNewPost.addEventListener('click', () => {
     const contentPost = div.querySelector('#post-text').value;
     const status = div.querySelector('#post-new-privacy').value;
-    const date = new Date().toLocaleString();
+    const date = new Date();
+    // const date = firebase.firestore.FieldValue.serverTimestamp();
+
     btnCancelImg.classList.add('hide');
     if (file === '') {
-      createPost(user.uid, contentPost, '', status, date, userName, userPhoto);
-    }else{
+      // createPost(user.uid, contentPost, '', status, date);
+      createPost(user.uid, contentPost, '', status, date, resultUser.data().name, resultUser.data().photo);
+    } else {
       uploadImgPost(file, user.uid)
-      .then((url)=>{
-        createPost(user.uid, contentPost, url, status, date, userName, userPhoto);
-      });
+        .then((url) => {
+        // createPost(user.uid, contentPost, url, status, date);
+          createPost(user.uid, contentPost, url, status, date,
+            resultUser.data().name, resultUser.data().photo);
+        });
     }
     div.querySelector('#post-text').value = '';
     showPicture.src = '';
-    file = '';       
+    file = '';
   });
-  
   // Se muestran todos los post
- const postSeccion = div.querySelector('#post-published');
- getAllPost( (arrayPost) =>{
-  postSeccion.innerHTML='';
+  const postSeccion = div.querySelector('#post-published');
+  //  getAllPost( (arrayPost) =>{
+  // postSeccion.innerHTML='';
   arrayPost.forEach((post) => {
-    if((post.state === 'private' && post.userId === user.uid) || post.state === 'public'){
-    postSeccion.appendChild(allPost(post,resultUser));
-  }
-  });
- });
- 
-  // DOM para el cerrar sesion
-  const btnLogOut = document.querySelector('#btn-logout');
-  btnLogOut.addEventListener('click', () => {
-    logOut()
-      .then(() => {
-        console.log('salio de logeo');
-        window.location.hash = '#/Cerrar';
-        document.querySelector('#nav').classList.remove('mostrar');
-      });
+    // dataUser(post.userId)
+    // .then((postUser) => {
+    if ((post.state === 'private' && post.userId === user.uid) || post.state === 'public') {
+      postSeccion.appendChild(allPost(post, resultUser));
+    }
   });
   return div;
 };

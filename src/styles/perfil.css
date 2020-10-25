@@ -21,7 +21,7 @@
 	width: 80%;
     display: flex;
     justify-content: center;
-		align-items: center;
+	align-items: center;
 }
 #portada-mensaje{
     width: 100%;
@@ -45,6 +45,7 @@
 	padding: 5px;
 	border-radius: 50%;
 }
+
 /*
 .formulario-actualizacion{
     display: flex;

@@ -9,19 +9,25 @@ export const createPost = (id, content, imgPost, privacy, time, userName, userPh
   likes: [],
 });
 
-export const deleteDoc = (collection, id) => firebase.firestore().collection(collection).doc(id).delete();
+export const deleteDoc = (collection, id) => firebase.firestore()
+  .collection(collection).doc(id).delete();
 
 export const updatePost = (id, postText, postState) => firebase.firestore().collection('posts').doc(id).update({
   contentPost: postText,
   state: postState,
 });
-export const updatePostUser = (id,name,photo) => firebase.firestore().collection('posts').doc(id).update({
+
+/*
+export const updatePostUser = (id,name,photo) => firebase.firestore().collection('posts').doc(id)
+.update({
   name: name,
   photo: photo,
 });
+*/
+
 export const getAllPost = callback => firebase.firestore().collection('posts')
-.orderBy('date','desc')  
-.onSnapshot((querySnapshot) => {
+  .orderBy('date', 'desc')
+  .onSnapshot((querySnapshot) => {
     const arrayPost = [];
     querySnapshot.forEach((doc) => {
       arrayPost.push({
@@ -38,4 +44,4 @@ export const getAllPost = callback => firebase.firestore().collection('posts')
     });
     callback(arrayPost);
   });
-export const updateLike = (id, likes) => firebase.firestore().collection('posts').doc(id).update({likes});
+export const updateLike = (id, likes) => firebase.firestore().collection('posts').doc(id).update({ likes });
