@@ -48,19 +48,19 @@ export const registerView = () => {
   const btnRegister = div.querySelector('#form-register');
   btnRegister.addEventListener('submit', (e) => {
     e.preventDefault();
-    // const name = div.querySelector('#form-name').value;
-    // const lastName = div.querySelector('#form-lastname').value;
+    const name = div.querySelector('#form-name').value;
+    const lastName = div.querySelector('#form-lastname').value;
     const email = div.querySelector('#form-email').value;
     const pass = div.querySelector('#form-pass').value;
     const passCheck = div.querySelector('#form-pass-check').value;
     const message = div.querySelector('#msg-error');
-    // const fullName = name.concat(lastName);
+    const fullName = name.concat(' ', lastName);
     if (pass !== passCheck) {
       message.innerHTML = '⚠️ Contraseñas no coinciden';
     } else {
       register(email, pass)
         .then((result) => {
-          createUser(result.user)
+          createUser(result.user, fullName)
             .then(() => {
               console.log('se creo el usuario');
               logIn(email, pass)

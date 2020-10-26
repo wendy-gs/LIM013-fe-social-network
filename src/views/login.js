@@ -52,7 +52,7 @@ export const loginPrincipal = () => {
               console.log('Usuario ya existe no es necesario crear uno nuevo');
               window.location.hash = '#/Inicio';
             } else {
-              createUser(result.user)
+              createUser(result.user, result.user.displayName)
                 .then(() => {
                   console.log('se creo usuario');
                   window.location.hash = '#/Inicio';
@@ -76,7 +76,7 @@ export const loginPrincipal = () => {
               console.log('Usuario ya existe no es necesario crear uno nuevo');
               window.location.hash = '#/Inicio';
             } else {
-              createUser(result.user.uid)
+              createUser(result.user.uid, result.user.displayName)
                 .then(() => {
                   console.log('se creo usuario');
                   window.location.hash = '#/Inicio';

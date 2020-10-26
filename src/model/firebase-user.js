@@ -1,13 +1,10 @@
 //  Crea un nuevo usuario
-export const createUser = (user) => {
-  let userPhoto;
-  if (`${user.photoURL}` !== null) {
-    userPhoto = `${user.photoURL}`;
-  } else {
-    userPhoto = 'img/perfil.png';
-  }
+export const createUser = (user, fullname) => {
+  console.log(`${user.photoURL}`);
+  let userPhoto = '/img/perfil.png';
+  if (`${user.photoURL}` !== 'null') userPhoto = `${user.photoURL}`;
   return firebase.firestore().collection('users').doc(`${user.uid}`).set({
-    name: `${user.displayName}`,
+    name: fullname,
     level: 'Primaria',
     grade: '1°',
     photo: userPhoto,
@@ -28,11 +25,13 @@ export const updateLote = (id, nameUser, levelUser, gradeUser, photoUser, campUs
   });
 
   arrayPost.forEach((post) => {
-    const postRef = firebase.firestore().collection('posts').doc(post.id);
-    batch.update(postRef, {
-      name: nameUser,
-      photo: photoUser,
-    });
+    if (post.userId === id) {
+      const postRef = firebase.firestore().collection('posts').doc(post.id);
+      batch.update(postRef, {
+        name: nameUser,
+        photo: photoUser,
+      });
+    }
   });
   batch.commit()
     .then(() => {
