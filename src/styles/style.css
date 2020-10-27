@@ -1,8 +1,8 @@
-@import 'login.css';
-@import 'perfil.css';
-@import url(menu.css);
-@import url(timelinemod.css);
-@import url(register.css);
+@import '/styles/login.css';
+@import '/styles/perfil.css';
+@import url(/styles/menu.css);
+@import url(/styles/timelinemod.css);
+@import url(/styles/register.css);
 
 * {
     margin: 0;
