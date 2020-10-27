@@ -39,7 +39,7 @@ export const allPost = (post, resultUser) => {
           <button class="btn-post" id="btnSave">Guardar</button>
           <button class="btn-post" id="btnCancel">Cancelar</button>
         </div>
-        <div ><img class='cont-img-post' src='${post.img}'></div>
+        <div><img class='cont-img-post' src='${post.img}'></div>
         <div class="footer-postpublised">
           <p class="counter-like">${post.likes.length}</p>
           <button type="button" class="btn-like ${(post.likes.indexOf(userId) === -1) ? 'like-ligth' : 'like-dark'}"><i class="far fa-thumbs-up"></i> Me gusta</button>

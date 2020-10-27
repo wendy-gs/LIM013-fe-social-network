@@ -1,6 +1,7 @@
 #timelineView,.form-update{
   width: 80%;
   margin: 20px auto;
+  /*display: flex;*/
   display: grid;
   grid-gap: 40px;
   grid-template-columns: repeat(3,1fr);
@@ -232,9 +233,29 @@ div.new-comment textarea{
   justify-content: space-evenly;
   margin-top: 10px;
 }
-@media (max-width:600px){
-  #timelineView{
+@media (max-width:700px){
+  #timelineView, .form-update{
   display: flex;
   flex-direction: column;
+  }
+  .card{
+    min-width: 210px;
+  }
+  .post{
+    padding: 5px;
+    width: 98%;
+    font-size: 12px;
+  }
+  .all-post{
+    min-width: 300px;
+  }
+  div .cont-img-post{
+    width: 100%;
+  }
+  .post-date-state{
+    font-size: 10px;
+  }
+  #post-new-privacy{
+    font-size: 11px;
   }
 }

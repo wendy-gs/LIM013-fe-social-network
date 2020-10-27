@@ -9,8 +9,8 @@
 }
 .portada{
 	width: 100%;
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 	justify-content: center;
 	text-align: center;
 	align-items: center;
@@ -25,7 +25,7 @@
 }
 #portada-mensaje{
     width: 100%;
-    min-width: 400px;
+    min-width: 320px;
     min-height: 220px;
     max-height: 240px;
 }
