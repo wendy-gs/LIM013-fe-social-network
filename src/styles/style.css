@@ -1,10 +1,10 @@
-/*
-@import '/styles/login.css';
-@import '/styles/perfil.css';
-@import url(/styles/menu.css);
-@import url(/styles/timelinemod.css);
-@import url(/styles/register.css);
-*/
+
+@import './login.css';
+@import './perfil.css';
+@import url(./menu.css);
+@import url(./timelinemod.css);
+@import url(./register.css);
+
 * {
     margin: 0;
     padding: 0;
@@ -16,8 +16,7 @@ body {
     margin: 0;
     font-family: "Helvetica", sans-serif;
     font-size: 17px;
-    background-color: red;
-   /* background: rgb(255,255,255); */
+    background: rgb(255,255,255);
     color:#007cba;
 }
 #container{
