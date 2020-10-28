@@ -93,12 +93,10 @@ export const timelineView = (resultUser, arrayPost) => {
 
     btnCancelImg.classList.add('hide');
     if (file === '') {
-      // createPost(user.uid, contentPost, '', status, date);
       createPost(user.uid, contentPost, '', status, date, resultUser.data().name, resultUser.data().photo);
     } else {
       uploadImgPost(file, user.uid)
         .then((url) => {
-        // createPost(user.uid, contentPost, url, status, date);
           createPost(user.uid, contentPost, url, status, date,
             resultUser.data().name, resultUser.data().photo);
         });
@@ -109,11 +107,7 @@ export const timelineView = (resultUser, arrayPost) => {
   });
   // Se muestran todos los post
   const postSeccion = div.querySelector('#post-published');
-  //  getAllPost( (arrayPost) =>{
-  // postSeccion.innerHTML='';
   arrayPost.forEach((post) => {
-    // dataUser(post.userId)
-    // .then((postUser) => {
     if ((post.state === 'private' && post.userId === user.uid) || post.state === 'public') {
       postSeccion.appendChild(allPost(post, resultUser));
     }

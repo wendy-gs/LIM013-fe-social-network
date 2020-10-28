@@ -1,23 +1,21 @@
 #timelineView,.form-update{
   width: 80%;
   margin: 20px auto;
-  /*display: flex;*/
-  display: grid;
-  grid-gap: 40px;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-areas: "profile posts posts";
+  display: flex;
+  justify-content: center;
 }
 .card {
   background-color: white;
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);*/
+  box-shadow: 0 2px 8px 0  #373939, 0 2px 8px 0 #373939;
   border-radius: 25px;
-  grid-area: profile;
   height: 250px;
   min-height:120px;
   margin-top: 15px;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  margin-right: 50px;
 }
 #photo-profile {
   height: 100px;
@@ -39,18 +37,19 @@
   text-align: center;
 }
 .all-post{
-  grid-area: posts;
+  display: flex;
+  flex-direction: column;
+  flex-grow:2;
 }
 .post{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	background-color: white;
-	box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5), 0 2px 10px 0 rgba(0,0,0,0.5);
 	border-radius: 25px;
-	margin: 15px 0px 30px 0px;
+	margin: 25px 0px 30px 0px;
 	padding: 20px;
-  width: 90%;
   font-size: 14px;
 }
 .photo-user{
@@ -86,7 +85,7 @@
   height: 5em;
   background-color: #D7D3D3;
   position: absolute;
-  right: 0;
+ /* right: 0;*/
   color: black;
 }
 .btn-menu-post{
@@ -121,7 +120,7 @@
   word-wrap: break-word;
   padding: 10px;
   color: gray;
-	margin: 10px 0 10px 0;
+	margin: 25px 0 25px 0;
   width: 100%;
 }
 .btn-like, .btn-comments{
@@ -237,17 +236,22 @@ div.new-comment textarea{
   #timelineView, .form-update{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 95%;
   }
   .card{
+    width: 100%;
     min-width: 210px;
+    margin-right: 0;
   }
   .post{
     padding: 5px;
-    width: 98%;
+    width: 100%;
     font-size: 12px;
   }
   .all-post{
-    min-width: 300px;
+    width: 100%;
+    min-width: 210px;
   }
   div .cont-img-post{
     width: 100%;

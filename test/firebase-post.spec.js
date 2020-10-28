@@ -69,7 +69,6 @@ describe('createPost', () => {
   it('Debería crear un post', done => createPost('03', 'Post 3', '', '', '', 'Usuario 3', '')
     .then(() => {
       const callback = (post) => {
-        console.log(post);
         const result = post.find(element => element.content === 'Post 3');
         expect(result.content).toBe('Post 3');
         done();

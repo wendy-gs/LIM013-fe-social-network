@@ -25,7 +25,6 @@ firebase.initializeApp(firebaseConfig);
 // DOM para el cerrar sesion
 const btnLogOut = document.querySelector('#btn-logout');
 btnLogOut.addEventListener('click', () => {
-  console.log('click en salir');
   logOut()
     .then(() => {
       console.log('salio de logeo');

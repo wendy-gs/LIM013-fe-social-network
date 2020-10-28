@@ -6,13 +6,13 @@ export const registerView = () => {
   const registerTmplt = `
   <section id='section-register'>
     <div class="imagen-login item-register">
-      <img id="img-colegio" src="/img/imagen-login.png">
+      <img id="img-colegio" src="https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/imagen-login.png?raw=true">
     </div> 
     <section class='section-form item-register'>
       <div class='cont-avatar item-form'>
-        <img id="logo-register" src='/img/logo.png'>
+        <img id="logo-register" src='https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/logo.png?raw=true'>
         <h1>REGISTRATE AHORA</h1>
-        <img id="avatar" src='/img/estudiante.JPG'>
+        <img id="avatar" src='https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/estudiante.jpg?raw=true'>
       </div>
       <form id='form-register' class='item-form'>
         <div class="div-input">

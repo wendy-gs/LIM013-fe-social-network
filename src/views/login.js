@@ -7,7 +7,7 @@ export const loginPrincipal = () => {
 
   <section id="view-login-desktop">
     <div class="imagen-login item-login">
-      <img id="img-colegio" src="/img/imagen-login.png">
+      <img id="img-colegio" src="https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/imagen-login.png?raw=true">
     </div> 
     <div class="formulario-login item-login">
       <div class="saludo">
@@ -15,7 +15,7 @@ export const loginPrincipal = () => {
         <p>En este lugar podras comunicarte y compartir recursos</p>
       </div>
       <div class="imagen-celular"> 
-        <img id="img-celular" src="/img/fondo-celular.png">
+        <img id="img-celular" src="https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/fondo-celular.png?raw=true">
       </div>
       <div id="formulario-principal">
         <form id="form-login">
@@ -54,7 +54,6 @@ export const loginPrincipal = () => {
             } else {
               createUser(result.user, result.user.displayName)
                 .then(() => {
-                  console.log('se creo usuario');
                   window.location.hash = '#/Inicio';
                 });
             }

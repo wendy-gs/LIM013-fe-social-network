@@ -8,7 +8,7 @@ export const allPost = (post, resultUser) => {
   const userId = firebase.auth().currentUser.uid;
   const viewpostpublish = document.createElement('article');
   viewpostpublish.innerHTML = `
-     <div class='post'>
+     <div class='post post-publised'>
        <div class="header-post">
           <div class='header-post-data'>
            <img class="photo-user" src="${post.photo}" alt="">

@@ -1,6 +1,5 @@
 //  Crea un nuevo usuario
 export const createUser = (user, fullname) => {
-  console.log(`${user.photoURL}`);
   let userPhoto = '/img/perfil.png';
   if (`${user.photoURL}` !== 'null') userPhoto = `${user.photoURL}`;
   return firebase.firestore().collection('users').doc(`${user.uid}`).set({
