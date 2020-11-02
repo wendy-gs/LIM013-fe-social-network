@@ -4,6 +4,9 @@ import { allPost } from './postPublished.js';
 
 import { uploadImgUser } from '../model/storage.js';
 
+
+import { getAllPost } from '../model/firebase-posts.js';
+
 export const profileView = (resultUser, arrayPost) => {
   const profile = document.createElement('div');
   profile.innerHTML = `
@@ -129,10 +132,13 @@ export const profileView = (resultUser, arrayPost) => {
   });
   // Mostrando solo los post del usuario
   const myPost = profile.querySelector('.my-post');
-  arrayPost.forEach((post) => {
-    if (post.userId === resultUser.id) {
-      myPost.appendChild(allPost(post, resultUser));
-    }
+  getAllPost((array) => {
+    myPost.innerHTML = '';
+    array.forEach((post) => {
+      if (post.userId === resultUser.id) {
+        myPost.appendChild(allPost(post, resultUser));
+      }
+    });
   });
   return profile;
 };

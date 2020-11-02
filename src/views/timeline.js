@@ -1,11 +1,12 @@
 
-import { createPost } from '../model/firebase-posts.js';
+import { createPost, getAllPost } from '../model/firebase-posts.js';
 
 import { uploadImgPost } from '../model/storage.js';
 
 import { allPost } from './postPublished.js';
 
-export const timelineView = (resultUser, arrayPost) => {
+
+export const timelineView = (resultUser) => {
   //  Obtener el usuario que accedió
   const userName = resultUser.data().name;
   const userLevel = resultUser.data().level;
@@ -107,10 +108,13 @@ export const timelineView = (resultUser, arrayPost) => {
   });
   // Se muestran todos los post
   const postSeccion = div.querySelector('#post-published');
-  arrayPost.forEach((post) => {
-    if ((post.state === 'private' && post.userId === user.uid) || post.state === 'public') {
-      postSeccion.appendChild(allPost(post, resultUser));
-    }
+  getAllPost((arrayPost) => {
+    postSeccion.innerHTML = '';
+    arrayPost.forEach((post) => {
+      if ((post.state === 'private' && post.userId === user.uid) || post.state === 'public') {
+        postSeccion.appendChild(allPost(post, resultUser));
+      }
+    });
   });
   return div;
 };

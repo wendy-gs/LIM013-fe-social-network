@@ -2,7 +2,7 @@ import { components } from '../views/index.js';
 
 import { dataUserConecting } from '../model/firebase-user.js';
 
-import { getAllPost } from '../model/firebase-posts.js';
+import { getPost } from '../model/firebase-posts.js';
 
 //  Funcion de cambios de rutas
 export const changeView = (hash) => {
@@ -25,18 +25,20 @@ export const changeView = (hash) => {
     case '#/Inicio': {
       headerElem.classList.add('show');
       dataUserConecting(user.uid, (resultUser) => {
-        getAllPost((arrayPost) => {
-          container.innerHTML = '';
-          container.appendChild(components.timeline(resultUser, arrayPost));
-        });
+       // getAllPost((arrayPost) => {
+        //  container.innerHTML = '';
+         
+          container.appendChild(components.timeline(resultUser));
+      //  });
       });
       break;
     }
     case '#/Perfil': {
       headerElem.classList.add('show');
       dataUserConecting(user.uid, (resultUser) => {
-        getAllPost((arrayPost) => {
-          container.innerHTML = '';
+        getPost((arrayPost) => {
+          console.log('pinto perfil');
+        container.innerHTML = '';
           container.appendChild(components.perfil(resultUser, arrayPost));
         });
       });

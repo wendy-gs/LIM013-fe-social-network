@@ -44,4 +44,23 @@ export const getAllPost = callback => firebase.firestore().collection('posts')
     });
     callback(arrayPost);
   });
+export const getPost = callback => firebase.firestore().collection('posts').get()
+  .then((querySnapshot) => {
+    const arrayPost = [];
+    querySnapshot.forEach((doc) => {
+      arrayPost.push({
+        id: doc.id,
+        name: doc.data().name,
+        photo: doc.data().photo,
+        userId: doc.data().userId,
+        content: doc.data().contentPost,
+        img: doc.data().img,
+        state: doc.data().state,
+        date: doc.data().date,
+        likes: doc.data().likes,
+      });
+    });
+    callback(arrayPost);
+  });
+
 export const updateLike = (id, likes) => firebase.firestore().collection('posts').doc(id).update({ likes });
