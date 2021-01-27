@@ -1,6 +1,6 @@
 //  Crea un nuevo usuario
 export const createUser = (user, fullname) => {
-  let userPhoto = '/img/perfil.png';
+  let userPhoto = 'https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/perfil.png?raw=true';
   if (`${user.photoURL}` !== 'null') userPhoto = `${user.photoURL}`;
   return firebase.firestore().collection('users').doc(`${user.uid}`).set({
     name: fullname,

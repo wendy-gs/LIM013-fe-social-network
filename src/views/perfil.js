@@ -13,7 +13,7 @@ export const profileView = (resultUser, arrayPost) => {
     <section id="view-perfil">
     <div class="portada">
       <div id="contendor-imagen">
-       <img id="portada-mensaje" src="/img/portada.png">
+       <img id="portada-mensaje" src="https://github.com/wendy-gs/LIM013-fe-social-network/blob/master/src/img/portada.png?raw=true">
      </div>
      <img id='photo-viewprofile' src='${resultUser.data().photo}' alt="profile-picture">
      <label for="selectphoto">
