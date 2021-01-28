@@ -24,11 +24,12 @@ export const changeView = (hash) => {
     }
     case '#/Inicio': {
       headerElem.classList.add('show');
+      console.log('entro por usuario');
       dataUserConecting(user.uid, (resultUser) => {
-       // getAllPost((arrayPost) => {
+        console.log('entro por correo');
+        // getAllPost((arrayPost) => {
         //  container.innerHTML = '';
-         
-          container.appendChild(components.timeline(resultUser));
+        container.appendChild(components.timeline(resultUser));
       //  });
       });
       break;
@@ -37,8 +38,7 @@ export const changeView = (hash) => {
       headerElem.classList.add('show');
       dataUserConecting(user.uid, (resultUser) => {
         getPost((arrayPost) => {
-          console.log('pinto perfil');
-        container.innerHTML = '';
+          container.innerHTML = '';
           container.appendChild(components.perfil(resultUser, arrayPost));
         });
       });

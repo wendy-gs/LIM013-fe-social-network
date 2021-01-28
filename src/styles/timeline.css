@@ -48,14 +48,16 @@
 
 #post-text {
     width: 100%;
-    height: 80px;
+    height: 200px;
     border-radius: 8px;
     border: 5px solid rgba(232,232,232,1);
+    outline: none;
 }
 
 textarea {
     resize: none;
     color:#007cba;
+    outline: none;
   }
 
 .post-buttons{

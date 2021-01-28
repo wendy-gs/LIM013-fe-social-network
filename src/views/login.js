@@ -98,10 +98,12 @@ export const loginPrincipal = () => {
     logIn(email, password)
       .then(() => {
         div.querySelector('#messages-error').innerHTML = '';
+        div.querySelector('#form-login').reset();
         window.location.hash = '#/Inicio';
       })
       .catch(() => {
         div.querySelector('#messages-error').innerHTML = '⚠️ Correo o clave no son correctos.';
+        div.querySelector('#form-login').reset();
       });
   });
   return div;
